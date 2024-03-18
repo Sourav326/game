@@ -1,6 +1,7 @@
 "use client"
 
 import React, { useEffect, useState } from 'react'
+import Link from 'next/link'
 const Pagination = ({ searchParams }) => {
     const [totalPagesData, setTotalPages] = useState("")
     const [page, setPage] = useState(1)
@@ -39,8 +40,8 @@ const Pagination = ({ searchParams }) => {
 
 
                     {
-                        pageNumbers.map((item) =>
-                            <li>
+                        pageNumbers.map((item, index) =>
+                            <li key={index}>
                                 <Link href={`/admin/user?page=${item}`} className={`${item == page ? "bg-purple-500 text-white hover:bg-purple-500 hover:text-white" : "bg-white"} flex items-center justify-center px-4 h-10 leading-tight text-gray-500 border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white`}>{item}</Link>
                             </li>
                         )

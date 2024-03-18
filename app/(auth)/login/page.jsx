@@ -56,10 +56,6 @@ const Page = () => {
             const data = response?.data
             if (data?.success === true) {
                 const token = data?.token
-                localStorage.setItem(
-                    `JWTtoken`,
-                    token
-                );
                 cookies.set('JWTtoken', token);
                 const base64Url = token.split('.')[1];
                 const base64 = base64Url.replace('-', '+').replace('_', '/');

@@ -1,6 +1,6 @@
 import Link from "next/link"
 
-const page = () => {
+const Page = () => {
   return (
     <>
       <Link href="/" className="shadow-lg w-42 shadow-indigo-500/40 rounded-md bg-green-500 text-white px-8 py-3 absolute top-20 left-20" >Go To Home</Link>
@@ -30,4 +30,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page

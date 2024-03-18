@@ -5,13 +5,15 @@ import { toast } from "sonner";
 import ProfileShimmer from '@/components/shimmers/profileShimmer';
 import { jwtDecode } from "jwt-decode";
 import Link from 'next/link';
+import Image from 'next/image'
 
-const page = () => {
+const Page = () => {
 
     const [user, setUser] = useState('')
     const getUser = async () => {
         try {
-            const token = localStorage.getItem("JWTtoken")
+            const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAeW9wbWFpbC5jb20iLCJfaWQiOiI2NWE3OWM0OTg3YjUwZTI4MjhjYmVhYWQiLCJyb2xlIjoidXNlciIsImlhdCI6MTcwOTAxNjM3MywiZXhwIjoxNzExNjA4MzczfQ.kuJEQqHPLARdCtHU9HA7UYFZJhG2qjfpbA1nDLY88YE'
+
 
             axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
             const response = await axios.get(process.env.NEXT_PUBLIC_API_HOST + '/user/profile')
@@ -38,10 +40,12 @@ const page = () => {
                 <div className="rounded-xl bg-[#2e2e2eab] flex flex-col gap-5 p-3 text-white">
                     <div className="bg-white p-3 border-t-4 border-green-400 w-full rounded-xl">
                         <div className="image overflow-hidden">
-
-                            <img className="h-auto w-[100px] rounded-full mx-auto"
+                            <Image
                                 src={user.image == "" ? '/defaultprofile.jpg' : user.image}
-                                alt="user Profile"
+                                width={100}
+                                height={100}
+                                alt="profile"
+                                className="h-auto w-[100px] rounded-full mx-auto"
                             />
                         </div>
                         <h1 className="text-gray-900 font-bold text-xl leading-8 my-1 capitalize">{user.name}</h1>
@@ -62,10 +66,10 @@ const page = () => {
                     </div>
                     <div className="bg-white p-3 border-t-4 border-green-400 w-full rounded-xl flex justify-center gap-7">
                         <Link href="/user/deposite">
-                        <button class="bg-[#05ad05] text-sm px-4 py-2 rounded-lg text-white flex gap-4 items-center">DEPOSITE</button>
+                            <button class="bg-[#05ad05] text-sm px-4 py-2 rounded-lg text-white flex gap-4 items-center">DEPOSITE</button>
                         </Link>
                         <Link href="/user/withdraw">
-                        <button class="bg-[#ffa900] text-sm px-4 py-2 rounded-lg text-white flex gap-4 items-center">WITHDRAW</button>
+                            <button class="bg-[#ffa900] text-sm px-4 py-2 rounded-lg text-white flex gap-4 items-center">WITHDRAW</button>
                         </Link>
                     </div>
 
@@ -75,4 +79,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Page

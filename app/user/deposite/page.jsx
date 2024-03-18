@@ -4,8 +4,9 @@ import axios from "axios"
 import { toast } from "sonner";
 import ProfileShimmer from '@/components/shimmers/profileShimmer';
 import { jwtDecode } from "jwt-decode";
+import Image from 'next/image'
 
-const page = () => {
+const Page = () => {
 
     const [bank, setBank] = useState('')
     const [loading, setLoading] = useState(false)
@@ -26,7 +27,8 @@ const page = () => {
 
     const getBank = async () => {
         try {
-            const token = localStorage.getItem("JWTtoken")
+            const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAeW9wbWFpbC5jb20iLCJfaWQiOiI2NWE3OWM0OTg3YjUwZTI4MjhjYmVhYWQiLCJyb2xlIjoidXNlciIsImlhdCI6MTcwOTAxNjM3MywiZXhwIjoxNzExNjA4MzczfQ.kuJEQqHPLARdCtHU9HA7UYFZJhG2qjfpbA1nDLY88YE'
+
 
             axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
             const response = await axios.get(process.env.NEXT_PUBLIC_API_HOST + '/bankaccount/list')
@@ -150,10 +152,12 @@ const page = () => {
                 <div className="rounded-xl bg-[#2e2e2eab] flex justify-between p-3 text-white">
                     <div className="bg-white p-3 border-t-4 border-green-400 w-full rounded-xl">
                         <div className="image overflow-hidden">
-
-                            <img className="h-auto w-[170px] md:w-[300px] mx-auto"
-                                src='https://flywin.club/storage/admin/bankdetail/barcode.jpeg'
-                                alt="user Profile"
+                            <Image
+                                src="/https://flywin.club/storage/admin/bankdetail/barcode.jpeg"
+                                width={250}
+                                height={250}
+                                alt="/https://flywin.club/storage/admin/bankdetail/barcode.jpeg"
+                                className="h-auto w-[170px] md:w-[300px] mx-auto"
                             />
                         </div>
                         <ul
@@ -228,4 +232,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Page

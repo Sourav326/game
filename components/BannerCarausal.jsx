@@ -6,6 +6,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
+import Image from 'next/image'
 
 
 const BannerCarausal = (props) => {
@@ -30,8 +31,10 @@ const BannerCarausal = (props) => {
                 {
                     images.map((item, index) => (
                         <SwiperSlide className='h-full' key={index}>
-                            <img
+                            <Image
                                 src={item.src}
+                                width={1200}
+                                height={100}
                                 alt="Slider Banner"
                                 className='h-full rounded-2xl cursor-pointer'
                             />

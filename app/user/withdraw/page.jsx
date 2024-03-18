@@ -5,7 +5,7 @@ import { toast } from "sonner";
 import ProfileShimmer from '@/components/shimmers/profileShimmer';
 import { jwtDecode } from "jwt-decode";
 
-const page = () => {
+const Page = () => {
 
     const [loading, setLoading] = useState(false)
 
@@ -21,7 +21,7 @@ const page = () => {
     const [isIfscCodeError, setIsIfscCodeError] = useState(false)
     const [isBankNameError, setIsBankNameError] = useState(false)
 
-    
+
 
     const hanleAmountChange = (e) => {
         setAmount(e.target.value)
@@ -108,7 +108,7 @@ const page = () => {
         }
     }
 
-    return  (
+    return (
         <>
             <div className="grid md:grid-cols-9 gap-4 py-4">
                 <div className="rounded-xl bg-[#2e2e2eab] flex justify-between p-3 text-white col-span-5 col-start-3">
@@ -156,4 +156,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Page

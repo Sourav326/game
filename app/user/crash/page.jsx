@@ -2,7 +2,7 @@ import React from 'react';
 import { UpdateNumberComponent, AllUserList } from '@/app/socket';
 
 
-const page = () => {
+const Page = () => {
     return (
         <div>
             <div className="grid md:grid-cols-7 gap-3 px-2">
@@ -17,4 +17,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Page

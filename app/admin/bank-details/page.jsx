@@ -7,13 +7,14 @@ import { toast } from "sonner";
 import TableShimmer from "@/components/shimmers/tableShimmer";
 import { FaEdit } from "react-icons/fa";
 import DeleteSetup from "@/components/admin/amount/DeleteSetup";
+import Image from 'next/image'
 
-const page = () => {
+const Page = () => {
 
       const [bank, setBank] = useState([])
       const getBank = async () => {
             try {
-                  const token = localStorage.getItem("JWTtoken")
+                  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAeW9wbWFpbC5jb20iLCJfaWQiOiI2NWE3OWM0OTg3YjUwZTI4MjhjYmVhYWQiLCJyb2xlIjoidXNlciIsImlhdCI6MTcwOTAxNjM3MywiZXhwIjoxNzExNjA4MzczfQ.kuJEQqHPLARdCtHU9HA7UYFZJhG2qjfpbA1nDLY88YE'
                   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
                   const response = await axios.get(process.env.NEXT_PUBLIC_API_HOST + '/bankaccount/list')
                   const data = await response.data;
@@ -108,7 +109,12 @@ const page = () => {
                                                                         {item.upiId}
                                                                   </td>
                                                                   <td className="px-6 py-4">
-                                                                        <img src={item.imageBarcode} />
+                                                                        <Image
+                                                                              src={item.imageBarcode}
+                                                                              width={250}
+                                                                              height={250}
+                                                                              alt="/products/ghee.png"
+                                                                        />
                                                                   </td>
                                                                   <td className="flex items-cqenter px-6 py-4">
                                                                         <Link href={`/admin/amount/${item._id}`} title="Edit" className="font-medium text-blue-600 dark:text-blue-500 hover:underline"><FaEdit /></Link>
@@ -128,4 +134,4 @@ const page = () => {
       )
 }
 
-export default page
+export default Page

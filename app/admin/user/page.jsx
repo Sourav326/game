@@ -9,7 +9,7 @@ import { FaEdit } from "react-icons/fa";
 import DeleteSetup from "@/components/admin/user/DeleteSetup";
 import Pagination from "@/components/admin/Pagination";
 
-const page = ({ searchParams }) => {
+const Page = ({ searchParams }) => {
 
       const [user, setUser] = useState([])
       const [loading, setLoading] = useState(false)
@@ -26,7 +26,8 @@ const page = ({ searchParams }) => {
                         const paramPage = searchParams.page
                         setPage(paramPage)
                   }
-                  const token = localStorage.getItem("JWTtoken")
+                  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAeW9wbWFpbC5jb20iLCJfaWQiOiI2NWE3OWM0OTg3YjUwZTI4MjhjYmVhYWQiLCJyb2xlIjoidXNlciIsImlhdCI6MTcwOTAxNjM3MywiZXhwIjoxNzExNjA4MzczfQ.kuJEQqHPLARdCtHU9HA7UYFZJhG2qjfpbA1nDLY88YE'
+
                   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
                   const response = await axios.get(process.env.NEXT_PUBLIC_API_HOST + `/user/list?page=${page}&limit=${limit}`)
                   const data = await response.data;
@@ -34,11 +35,11 @@ const page = ({ searchParams }) => {
                         // setTotalData(data?.totalItems)
                         setTotalPages(data?.totalPages)
                         setUser(data?.data)
-                        if(data?.nextpage){
+                        if (data?.nextpage) {
                               setNextUrl(data?.nextpage)
                         }
-                        
-                        if(data?.prepage){
+
+                        if (data?.prepage) {
                               setPreUrl(data?.nextpage)
                         }
                   } else {
@@ -59,7 +60,8 @@ const page = ({ searchParams }) => {
       const handleStatus = async (sid) => {
             try {
                   setLoading(true)
-                  const token = localStorage.getItem("JWTtoken")
+                  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAeW9wbWFpbC5jb20iLCJfaWQiOiI2NWE3OWM0OTg3YjUwZTI4MjhjYmVhYWQiLCJyb2xlIjoidXNlciIsImlhdCI6MTcwOTAxNjM3MywiZXhwIjoxNzExNjA4MzczfQ.kuJEQqHPLARdCtHU9HA7UYFZJhG2qjfpbA1nDLY88YE'
+
                   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
                   const response = await axios.post(process.env.NEXT_PUBLIC_API_HOST + '/user/status/' + sid)
                   const data = await response.data;
@@ -76,9 +78,43 @@ const page = ({ searchParams }) => {
             }
       }
 
+
+
+
       useEffect(() => {
+            const getUser = async () => {
+                  try {
+                        if (searchParams.page >= 1) {
+                              // setUser([])
+                              const paramPage = searchParams.page
+                              setPage(paramPage)
+                        }
+                        const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAeW9wbWFpbC5jb20iLCJfaWQiOiI2NWE3OWM0OTg3YjUwZTI4MjhjYmVhYWQiLCJyb2xlIjoidXNlciIsImlhdCI6MTcwOTAxNjM3MywiZXhwIjoxNzExNjA4MzczfQ.kuJEQqHPLARdCtHU9HA7UYFZJhG2qjfpbA1nDLY88YE'
+
+                        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+                        const response = await axios.get(process.env.NEXT_PUBLIC_API_HOST + `/user/list?page=${page}&limit=${limit}`)
+                        const data = await response.data;
+                        if (data?.success == true) {
+                              // setTotalData(data?.totalItems)
+                              setTotalPages(data?.totalPages)
+                              setUser(data?.data)
+                              if (data?.nextpage) {
+                                    setNextUrl(data?.nextpage)
+                              }
+
+                              if (data?.prepage) {
+                                    setPreUrl(data?.nextpage)
+                              }
+                        } else {
+                              toast.error(data?.message)
+                        }
+                  } catch (error) {
+                        toast.warning(error?.message)
+                  }
+            }
+
             getUser();
-      }, [user]);
+      }, [user, page, limit, searchParams.page]);
 
 
       return (
@@ -186,7 +222,7 @@ const page = ({ searchParams }) => {
 
                                                 </tbody>
                                           </table>
-                                          <Pagination  />
+                                          <Pagination />
                                     </div>
                               </>
                         )
@@ -195,4 +231,4 @@ const page = ({ searchParams }) => {
       )
 }
 
-export default page
+export default Page

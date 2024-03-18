@@ -8,18 +8,19 @@ import TableShimmer from "@/components/shimmers/tableShimmer";
 import { FaEdit } from "react-icons/fa";
 import DeleteSetup from "@/components/admin/amount/DeleteSetup";
 
-const page = () => {
+const Page = () => {
 
       const [setting, setSetting] = useState([])
       const getSetting = async () => {
             try {
-                  const token = localStorage.getItem("JWTtoken")
+                  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAeW9wbWFpbC5jb20iLCJfaWQiOiI2NWE3OWM0OTg3YjUwZTI4MjhjYmVhYWQiLCJyb2xlIjoidXNlciIsImlhdCI6MTcwOTAxNjM3MywiZXhwIjoxNzExNjA4MzczfQ.kuJEQqHPLARdCtHU9HA7UYFZJhG2qjfpbA1nDLY88YE'
+
                   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
                   const response = await axios.get(process.env.NEXT_PUBLIC_API_HOST + '/settings/')
                   const data = await response.data;
                   if (data?.success === true) {
                         setSetting(data?.data)
-                  } else if(data?.success === false){
+                  } else if (data?.success === false) {
                         toast.error(data?.message)
                   }
             } catch (error) {
@@ -96,4 +97,4 @@ const page = () => {
       )
 }
 
-export default page
+export default Page

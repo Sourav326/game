@@ -3,7 +3,7 @@
 import Card from "@/components/admin/Card"
 import ProfileShimmer from "@/components/shimmers/profileShimmer"
 import Link from "next/link"
-import { useState ,useEffect} from "react"
+import { useState, useEffect } from "react"
 import axios from "axios"
 import { toast } from "sonner";
 
@@ -13,7 +13,8 @@ const Dashboard = () => {
       const [cardData, setCardData] = useState('')
       const getCardData = async () => {
             try {
-                  const token = localStorage.getItem("JWTtoken")
+                  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAeW9wbWFpbC5jb20iLCJfaWQiOiI2NWE3OWM0OTg3YjUwZTI4MjhjYmVhYWQiLCJyb2xlIjoidXNlciIsImlhdCI6MTcwOTAxNjM3MywiZXhwIjoxNzExNjA4MzczfQ.kuJEQqHPLARdCtHU9HA7UYFZJhG2qjfpbA1nDLY88YE'
+
                   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
                   const response = await axios.get(process.env.NEXT_PUBLIC_API_HOST + '/admin/dashboard')
                   const data = await response.data;
@@ -26,26 +27,26 @@ const Dashboard = () => {
                   toast.warning(error?.message)
             }
       }
-      
+
       useEffect(() => {
             getCardData();
-        }, []);
-        return cardData.length == 0 ? (
+      }, []);
+      return cardData.length == 0 ? (
             <ProfileShimmer />
-        ) : (
+      ) : (
             <>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8 pb-12">
-                         <Card title="Today User" value={cardData.TodayUser} color="bg-gradient-to-r from-pink-400 to-red-300" />
-                         <Card title="Total User" value={cardData.TotalUser} color="bg-gradient-to-r from-pink-400 to-red-300" />
-                         <Card title="Today Recharge" value={cardData.TodayRecharge +' (₹ ' + cardData.todayRechargeSum + ')'} color="bg-gradient-to-r from-pink-400 to-red-300" />
-                         <Card title="Total Pending Recharge" value={cardData.TotalPendingRecharge +' (₹ ' + cardData.TotalPendingRechargeSum + ')'} color="bg-gradient-to-r from-blue-400 to-purple-300" />
-                         <Card title="Total Recharge" value={cardData.TotalRecharge +' (₹ ' + cardData.TotalRechargeSum + ')'} color="bg-gradient-to-r from-blue-400 to-purple-300" />
-                         <Card title="Today Withdrawal" value={cardData.TodayWithdrawal +' (₹ ' + cardData.TodayWithdrawalSum + ')'} color="bg-gradient-to-r from-pink-400 to-red-300" />
-                         <Card title="Today Withdrawal" value={cardData.TodayWithdrawal} color="bg-gradient-to-r from-pink-400 to-red-300" />
-                         <Card title="Today Withdrawal" value={cardData.TodayWithdrawal} color="bg-gradient-to-r from-pink-400 to-red-300" />
-                         <Card title="Today Withdrawal" value={cardData.TodayWithdrawal} color="bg-gradient-to-r from-green-400 to-yellow-300" />
-                         <Card title="Today Withdrawal" value={cardData.TodayWithdrawal} color="bg-gradient-to-r from-green-400 to-yellow-300" />
-                         <Card title="Today Withdrawal" value={cardData.TodayWithdrawal} color="bg-gradient-to-r from-green-400 to-yellow-300" />
+                        <Card title="Today User" value={cardData.TodayUser} color="bg-gradient-to-r from-pink-400 to-red-300" />
+                        <Card title="Total User" value={cardData.TotalUser} color="bg-gradient-to-r from-pink-400 to-red-300" />
+                        <Card title="Today Recharge" value={cardData.TodayRecharge + ' (₹ ' + cardData.todayRechargeSum + ')'} color="bg-gradient-to-r from-pink-400 to-red-300" />
+                        <Card title="Total Pending Recharge" value={cardData.TotalPendingRecharge + ' (₹ ' + cardData.TotalPendingRechargeSum + ')'} color="bg-gradient-to-r from-blue-400 to-purple-300" />
+                        <Card title="Total Recharge" value={cardData.TotalRecharge + ' (₹ ' + cardData.TotalRechargeSum + ')'} color="bg-gradient-to-r from-blue-400 to-purple-300" />
+                        <Card title="Today Withdrawal" value={cardData.TodayWithdrawal + ' (₹ ' + cardData.TodayWithdrawalSum + ')'} color="bg-gradient-to-r from-pink-400 to-red-300" />
+                        <Card title="Today Withdrawal" value={cardData.TodayWithdrawal} color="bg-gradient-to-r from-pink-400 to-red-300" />
+                        <Card title="Today Withdrawal" value={cardData.TodayWithdrawal} color="bg-gradient-to-r from-pink-400 to-red-300" />
+                        <Card title="Today Withdrawal" value={cardData.TodayWithdrawal} color="bg-gradient-to-r from-green-400 to-yellow-300" />
+                        <Card title="Today Withdrawal" value={cardData.TodayWithdrawal} color="bg-gradient-to-r from-green-400 to-yellow-300" />
+                        <Card title="Today Withdrawal" value={cardData.TodayWithdrawal} color="bg-gradient-to-r from-green-400 to-yellow-300" />
                   </div>
                   <div className='shadow-lg shadow-indigo-500/40 rounded-md bg-white p-5 mb-12'>
                         <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -81,7 +82,7 @@ const Dashboard = () => {
                               <tbody>
                                     <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                           <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                Apple MacBook Pro 17"
+                                                Apple MacBook Pro 17
                                           </th>
                                           <td className="px-6 py-4">
                                                 Silver

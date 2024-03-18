@@ -4,6 +4,7 @@ import io from 'socket.io-client';
 //------------user ID check out----------------//
 import axios from "axios"
 import { toast } from "sonner";
+import Image from 'next/image'
 
 let socket = io('http://localhost:8002');
 //----------------------Main Logic of Updated Number-----------------------//
@@ -63,7 +64,7 @@ export const UpdateNumberComponent = () => {
     const [updateNumber, setUpdateNumber] = useState(0);
     const [isPlaneFlying, setIsPlaneFlying] = useState(false);
     const [waitingForNext, setWaitingForNext] = useState(false);
-   
+
 
     useEffect(() => {
         const backGroundSound = document.getElementById("GameSound1");
@@ -84,7 +85,7 @@ export const UpdateNumberComponent = () => {
         });
         //when the plane is not flying logic.....
         socket.on("false", () => {
-           
+
             setTimeout(() => {
                 // planeCashSound.play();
                 setIsPlaneFlying(false);
@@ -107,7 +108,7 @@ export const UpdateNumberComponent = () => {
             backGroundSound.pause();
             // console.log("Component Unmounted");
         };
-    }, []);
+    }, [isPlaneFlying, updateNumber]);
 
     useEffect(() => {
         if (isPlaneFlying) {
@@ -143,9 +144,22 @@ export const UpdateNumberComponent = () => {
                 `}</style>
 
                 {isPlaneFlying ?
-                    <img id="plane" src="/p.png" className="absolute bottom-3 left-0 z-10 w-24 md:w-36" />
+                    <Image
+                        id="plane"
+                        src="/p.png"
+                        width={250}
+                        height={250}
+                        alt="plane"
+                        className="absolute bottom-3 left-0 z-10 w-24 md:w-36"
+                    />
                     :
-                    <img src="/p.png" className="absolute bottom-3 left-0 z-10 w-24 md:w-36" />
+                    <Image
+                        src="/p.png"
+                        width={250}
+                        height={250}
+                        alt="plane"
+                        className="absolute bottom-3 left-0 z-10 w-24 md:w-36"
+                    />
                 }
                 <div className="absolute inset-0 flex items-center justify-center z-10">
                     <div className="text-white text-center font-bold">
@@ -156,7 +170,13 @@ export const UpdateNumberComponent = () => {
                                 {waitingForNext ? (
                                     <>
                                         <div className='flex flex-col justify-center items-center gap-2'>
-                                            <img src="/loader.webp" className='animate-spin relative z-10 w-[100px]' />
+                                            <Image
+                                                src="/loader.webp"
+                                                width={250}
+                                                height={250}
+                                                alt="loader"
+                                                className="animate-spin relative z-10 w-[100px]"
+                                            />
                                             <h1 className='text-white text-3xl font-bold uppercase relative z-20'>Waiting for next Round</h1>
                                         </div>
                                     </>
@@ -170,7 +190,13 @@ export const UpdateNumberComponent = () => {
                         )}
                     </div>
                 </div>
-                <img src="/bg-rotate-old.svg" className="absolute h-[1000px] max-w-[1000px] md:h-[3000px] md:max-w-[3000px] -left-[129%] -top-[94%] md:-top-[161%] animate-spin-slow z-1" />
+                <Image
+                    src="/bg-rotate-old.svg"
+                    width={3000}
+                    height={3000}
+                    alt="game background"
+                    className="absolute h-[1000px] max-w-[1000px] md:h-[3000px] md:max-w-[3000px] -left-[129%] -top-[94%] md:-top-[161%] animate-spin-slow z-1"
+                />
             </div>
             <div className="rounded-xl h-48 flex gap-3">
                 <div className="rounded-xl border w-full h-full">
@@ -179,7 +205,7 @@ export const UpdateNumberComponent = () => {
                             <BetInput />
                             // <button className='text-white bg-[#ffa900] py-4 px-10 rounded' onClick={handleUseClientClickUpdate}>CASHOUT</button>
                         ) : (
-                                <button className='text-white bg-[#28a909] py-4 px-10 rounded' onClick={handleUseClientClick}>BET</button>
+                            <button className='text-white bg-[#28a909] py-4 px-10 rounded' onClick={handleUseClientClick}>BET</button>
                         )}
                     </div>
                 </div>
@@ -367,7 +393,8 @@ export const AllUserList = () => {
         // Fetch user data when the component mounts
         const fetchUserData = async () => {
             try {
-                const token = localStorage.getItem("JWTtoken")
+                const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAeW9wbWFpbC5jb20iLCJfaWQiOiI2NWE3OWM0OTg3YjUwZTI4MjhjYmVhYWQiLCJyb2xlIjoidXNlciIsImlhdCI6MTcwOTAxNjM3MywiZXhwIjoxNzExNjA4MzczfQ.kuJEQqHPLARdCtHU9HA7UYFZJhG2qjfpbA1nDLY88YE'
+
                 axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
                 const response = await axios.get(process.env.NEXT_PUBLIC_API_HOST + '/user/profile');
                 const data = await response.data;
@@ -414,8 +441,8 @@ export const AllUserList = () => {
 //-------------------------------------END -----------------------------------//
 
 //------------------------ API for deduction amount---------------------------//
- const BetInput = () => {
-    const [betAmount, setBetAmount] = useState(""); 
+const BetInput = () => {
+    const [betAmount, setBetAmount] = useState("");
 
     // Function to handle input change
     const handleInputChange = (event) => {
@@ -450,15 +477,16 @@ export const handleUseClientClick = async (betAmount) => {
 };
 
 const makeAPICall = async (amount) => {
-    const token = localStorage.getItem("JWTtoken");
+    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAeW9wbWFpbC5jb20iLCJfaWQiOiI2NWE3OWM0OTg3YjUwZTI4MjhjYmVhYWQiLCJyb2xlIjoidXNlciIsImlhdCI6MTcwOTAxNjM3MywiZXhwIjoxNzExNjA4MzczfQ.kuJEQqHPLARdCtHU9HA7UYFZJhG2qjfpbA1nDLY88YE'
+
     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
-  // Replace 
+    // Replace 
     const gameID = "999";
 
     // Make the API call
     return await axios.post(process.env.NEXT_PUBLIC_API_HOST + '/bettings', {
-      
+
         gameID,
         amount
     });
@@ -480,7 +508,8 @@ export const handleUseClientClickUpdate = async () => {
 };
 
 const makeAPICallUpdate = async () => {
-    const token = localStorage.getItem("JWTtoken");
+    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAeW9wbWFpbC5jb20iLCJfaWQiOiI2NWE3OWM0OTg3YjUwZTI4MjhjYmVhYWQiLCJyb2xlIjoidXNlciIsImlhdCI6MTcwOTAxNjM3MywiZXhwIjoxNzExNjA4MzczfQ.kuJEQqHPLARdCtHU9HA7UYFZJhG2qjfpbA1nDLY88YE'
+
     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
     // Replace 

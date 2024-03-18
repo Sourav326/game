@@ -7,13 +7,15 @@ import { toast } from "sonner";
 import TableShimmer from "@/components/shimmers/tableShimmer";
 import { FaEdit } from "react-icons/fa";
 import DeleteBanner from "@/components/admin/banner/DeleteBanner";
-const page = () => {
+import Image from 'next/image'
+const Page = () => {
 
       const [banner, setBanner] = useState([])
       const [loading, setLoading] = useState(false)
       const getBanner = async () => {
             try {
-                  const token = localStorage.getItem("JWTtoken")
+                  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAeW9wbWFpbC5jb20iLCJfaWQiOiI2NWE3OWM0OTg3YjUwZTI4MjhjYmVhYWQiLCJyb2xlIjoidXNlciIsImlhdCI6MTcwOTAxNjM3MywiZXhwIjoxNzExNjA4MzczfQ.kuJEQqHPLARdCtHU9HA7UYFZJhG2qjfpbA1nDLY88YE'
+
                   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
                   const response = await axios.get(process.env.NEXT_PUBLIC_API_HOST + '/banners')
                   const data = await response.data;
@@ -28,13 +30,14 @@ const page = () => {
       }
 
 
-      const handleStatus = async (sid,status) => {
+      const handleStatus = async (sid, status) => {
             try {
                   setLoading(true)
-                  const token = localStorage.getItem("JWTtoken")
+                  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAeW9wbWFpbC5jb20iLCJfaWQiOiI2NWE3OWM0OTg3YjUwZTI4MjhjYmVhYWQiLCJyb2xlIjoidXNlciIsImlhdCI6MTcwOTAxNjM3MywiZXhwIjoxNzExNjA4MzczfQ.kuJEQqHPLARdCtHU9HA7UYFZJhG2qjfpbA1nDLY88YE'
+
                   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-                  const response = await axios.put(process.env.NEXT_PUBLIC_API_HOST + '/banners/' + sid,{
-                        status:status
+                  const response = await axios.put(process.env.NEXT_PUBLIC_API_HOST + '/banners/' + sid, {
+                        status: status
                   })
                   const data = await response.data;
                   if (data?.success == true) {
@@ -111,15 +114,20 @@ const page = () => {
                                                                               {item.groupID}
                                                                         </td>
                                                                         <td className="px-6 py-4">
-                                                                              <img src={item.images} />
+                                                                              <Image
+                                                                                    src={item.images}
+                                                                                    width={250}
+                                                                                    height={250}
+                                                                                    alt="/products/ghee.png"
+                                                                              />
                                                                         </td>
                                                                         <td className="px-6 py-4">
                                                                               {
                                                                                     item.status == 'Active' ?
-                                                                                          <div className="bg-emerald-400 px-3 py-1 text-center rounded-lg text-white cursor-pointer hover:bg-lime-400" onClick={(e) => handleStatus(item._id,'Deactive')}>{loading ? ".." : 'Active'}</div> :
-                                                                                          <div className="bg-red-500 px-3 py-1 text-center rounded-lg text-white cursor-pointer hover:bg-violet-500" onClick={(e) => handleStatus(item._id,'Active')}>{loading ? ".." : 'Deactive'}</div>
+                                                                                          <div className="bg-emerald-400 px-3 py-1 text-center rounded-lg text-white cursor-pointer hover:bg-lime-400" onClick={(e) => handleStatus(item._id, 'Deactive')}>{loading ? ".." : 'Active'}</div> :
+                                                                                          <div className="bg-red-500 px-3 py-1 text-center rounded-lg text-white cursor-pointer hover:bg-violet-500" onClick={(e) => handleStatus(item._id, 'Active')}>{loading ? ".." : 'Deactive'}</div>
                                                                               }
-                                                                        </td> 
+                                                                        </td>
                                                                         <td className=" px-6 py-4 h-full">
                                                                               {
                                                                                     <div className="flex gap-1">
@@ -143,4 +151,4 @@ const page = () => {
       )
 }
 
-export default page
+export default Page

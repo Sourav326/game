@@ -11,13 +11,14 @@ import { IoCheckmarkCircle } from "react-icons/io5";
 import { MdCancel } from "react-icons/md";
 import { MdPending } from "react-icons/md";
 
-const page = () => {
+const Page = () => {
 
       const [recharge, setRecharge] = useState([])
       const [loading, setLoading] = useState(false)
       const getRecharge = async () => {
             try {
-                  const token = localStorage.getItem("JWTtoken")
+                  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAeW9wbWFpbC5jb20iLCJfaWQiOiI2NWE3OWM0OTg3YjUwZTI4MjhjYmVhYWQiLCJyb2xlIjoidXNlciIsImlhdCI6MTcwOTAxNjM3MywiZXhwIjoxNzExNjA4MzczfQ.kuJEQqHPLARdCtHU9HA7UYFZJhG2qjfpbA1nDLY88YE'
+
                   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
                   const response = await axios.get(process.env.NEXT_PUBLIC_API_HOST + '/user/transaction/list')
                   const data = await response.data;
@@ -35,7 +36,8 @@ const page = () => {
       const handleStatus = async (sid, status) => {
             try {
                   // setLoading(true)
-                  const token = localStorage.getItem("JWTtoken")
+                  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAeW9wbWFpbC5jb20iLCJfaWQiOiI2NWE3OWM0OTg3YjUwZTI4MjhjYmVhYWQiLCJyb2xlIjoidXNlciIsImlhdCI6MTcwOTAxNjM3MywiZXhwIjoxNzExNjA4MzczfQ.kuJEQqHPLARdCtHU9HA7UYFZJhG2qjfpbA1nDLY88YE'
+
                   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
                   const response = await axios.post(process.env.NEXT_PUBLIC_API_HOST + '/user/transaction/status/' + sid, {
                         status: status
@@ -61,7 +63,7 @@ const page = () => {
             <div className='shadow-lg shadow-indigo-500/40 rounded-md bg-white p-5 w-full max-w-7xl'>
                   <div className="topHeading flex justify-between pt-3 pb-8 px-3">
                         <h1 className="text-xl font-bold">Recharge Management</h1>
-                        
+
                   </div>
                   {
                         recharge.length == 0 ? (
@@ -132,9 +134,9 @@ const page = () => {
                                                                   <div className="bg-green-500 px-3 py-1 text-center rounded-lg text-white cursor-pointer hover:bg-green-700" onClick={(e) => handleStatus(item._id, "1")}>{loading ? "loading.." : 'Approve'}</div>
                                                                   <div className="bg-red-500 px-3 py-1 text-center rounded-lg text-white cursor-pointer hover:bg-red-700" onClick={(e) => handleStatus(item._id, "0")}>{loading ? "loading.." : 'Cancel'}</div>
                                                             </>
-                                                      } else if(item.status == 'cancel'){
+                                                      } else if (item.status == 'cancel') {
                                                             statusActionButton = <div className="bg-red-300 px-3 py-1 text-center rounded-lg text-white" >Cancelled</div>
-                                                      }else {
+                                                      } else {
                                                             statusActionButton = <div className="bg-green-300 px-3 py-1 text-center rounded-lg text-white" >Approved</div>
                                                       }
 
@@ -189,4 +191,4 @@ const page = () => {
       )
 }
 
-export default page
+export default Page

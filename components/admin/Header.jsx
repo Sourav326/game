@@ -13,22 +13,23 @@ import { toast } from "sonner";
 import axios from "axios"
 import { jwtDecode } from "jwt-decode";
 
-const Header = ({ onIsCollapsed ,user,setUser}) => {
+const Header = ({ onIsCollapsed, user, setUser }) => {
     const [dropdown, setDropdown] = useState(false)
     const router = useRouter()
     const [loading, setLoading] = useState(false)
     const cookies = new Cookies(null, { path: '/' });
-    const token = localStorage.getItem("JWTtoken")
-    const [loginUser,setLoginuser] = useState('')
-    
-    useEffect(()=> {
-        if(token){
+    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAeW9wbWFpbC5jb20iLCJfaWQiOiI2NWE3OWM0OTg3YjUwZTI4MjhjYmVhYWQiLCJyb2xlIjoidXNlciIsImlhdCI6MTcwOTAxNjM3MywiZXhwIjoxNzExNjA4MzczfQ.kuJEQqHPLARdCtHU9HA7UYFZJhG2qjfpbA1nDLY88YE'
+
+    const [loginUser, setLoginuser] = useState('')
+
+    useEffect(() => {
+        if (token) {
             const userData = jwtDecode(token)
-            if(userData){
+            if (userData) {
                 setLoginuser(userData)
             }
         }
-    },[])
+    }, [token])
 
     const logout = async () => {
         try {
@@ -37,7 +38,6 @@ const Header = ({ onIsCollapsed ,user,setUser}) => {
             const response = await axios.post(process.env.NEXT_PUBLIC_API_HOST + '/logout')
             const data = await response.data;
             if (data?.success == true) {
-                localStorage.removeItem("JWTtoken")
                 cookies.remove('JWTtoken');
                 setUser(null)
                 setLoading(false)

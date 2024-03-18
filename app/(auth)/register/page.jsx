@@ -6,7 +6,7 @@ import axios from "axios"
 import { useRouter } from 'next/navigation'
 import { toast } from "sonner";
 
-const page = () => {
+const Page = () => {
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [mobile, setMobile] = useState('')
@@ -140,4 +140,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Page
