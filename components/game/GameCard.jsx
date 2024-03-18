@@ -6,7 +6,7 @@ import Cookies from 'universal-cookie';
 import Image from 'next/image'
 
 const GameCard = ({ link = '#', image = '/aviator.png' }) => {
-    const [isLogin, setisLogin] = useState(false)
+    const [isLogin, setisLogin] = useState(true)
 
     const getCookie = () => {
         const cookies = new Cookies(null, { path: '/' });
