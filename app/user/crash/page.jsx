@@ -1,5 +1,6 @@
 import React from 'react';
 import { UpdateNumberComponent, AllUserList } from '@/app/socket';
+import CrashGame from '@/components/crashGame';
 
 
 const Page = () => {
@@ -11,6 +12,7 @@ const Page = () => {
                 </div>
                 <div className="md:col-span-5 flex flex-col gap-3">
                     <UpdateNumberComponent />
+                    {/* <CrashGame /> */}
                 </div>
             </div>
         </div>

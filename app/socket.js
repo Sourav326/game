@@ -5,6 +5,7 @@ import io from 'socket.io-client';
 import axios from "axios"
 import { toast } from "sonner";
 import Image from 'next/image'
+import CrashGame from '@/components/crashGame';
 
 let socket = io('http://localhost:8002');
 //----------------------Main Logic of Updated Number-----------------------//
@@ -120,7 +121,7 @@ export const UpdateNumberComponent = () => {
 
     return (
         <>
-            <div className="border rounded-xl h-64 md:h-[36rem] w-full bg-[#2e2e2eab] overflow-hidden relative">
+            {/* <div className="border rounded-xl h-64 md:h-[36rem] w-full bg-[#2e2e2eab] overflow-hidden relative">
                 <style jsx>{`
                     .container {
                         position: relative;
@@ -197,9 +198,12 @@ export const UpdateNumberComponent = () => {
                     alt="game background"
                     className="absolute h-[1000px] max-w-[1000px] md:h-[3000px] md:max-w-[3000px] -left-[129%] -top-[94%] md:-top-[161%] animate-spin-slow z-1"
                 />
+            </div> */}
+            <div className="border rounded-xl h-64 md:h-[100%] w-full bg-[#2e2e2eab] overflow-hidden relative">
+                <CrashGame />
             </div>
-            <div className="rounded-xl h-48 flex gap-3">
-                <div className="rounded-xl border w-full h-full">
+            {/* <div className="rounded-xl h-48 flex gap-3"> */}
+            {/* <div className="rounded-xl border w-full h-full">
                     <div className='h-full flex justify-center items-center'>
                         {isPlaneFlying ? (
                             <BetInput />
@@ -208,13 +212,13 @@ export const UpdateNumberComponent = () => {
                             <button className='text-white bg-[#28a909] py-4 px-10 rounded' onClick={handleUseClientClick}>BET</button>
                         )}
                     </div>
-                </div>
-                <div className="rounded-xl border h-full w-full">
+                </div> */}
+            {/* <div className="rounded-xl border h-full w-full">
                     <div className='h-full flex justify-center items-center'>
                         <button className='text-white bg-[#28a909] py-4 px-10 rounded'>BET</button>
                     </div>
-                </div>
-            </div>
+                </div> */}
+            {/* </div> */}
             <audio id="GameSound1" src="/background.mp3" preload="auto" loop></audio>
             <audio id="GameSound2" src="/plane-crash.mp3" preload="auto"></audio>
         </>
